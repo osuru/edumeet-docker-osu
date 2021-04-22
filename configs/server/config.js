@@ -175,8 +175,8 @@ module.exports =
 		}
 	],*/
 	//Special getter for preshared key auth for TURN server
-	get backupTurnServers(){return [getIce('exampleTURNpass',['turn:.ru:6444?transport=udp',
-						'turns:online.osu.ru:443?transport=tcp'])];},
+	get backupTurnServers(){return [getIce('exampleTURNpass',['turn:example.ru:6444?transport=udp',
+						'turns:example.ru:443?transport=tcp'])];},
 
 	// bittorrent tracker
 	fileTracker  : 'wss://tracker.lab.vvc.niif.hu:443',
