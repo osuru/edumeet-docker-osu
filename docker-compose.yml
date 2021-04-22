@@ -46,8 +46,6 @@ services:
 #      - 6443:443
 #    environment:
 #     - AUTH_SECRET=examplekey
-#     - AUTH_REALM=online.osu.ru
-#     - EXTERNAL_IP=62.76.152.229
 #     - TLS_DIRECTORY=/certs
 #    volumes:
 #      - ./certs:/certs

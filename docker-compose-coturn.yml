@@ -4,9 +4,9 @@ services:
     image: michaelfig/coturns
     network_mode: "host"
     environment:
-     - AUTH_SECRET=examplekey
-     - AUTH_REALM=online.osu.ru
-     - EXTERNAL_IP=62.76.152.229
+     - AUTH_SECRET=exampleTURNpass
+     - AUTH_REALM=example.ru
+     - EXTERNAL_IP=1.1.1.1
      - TLS_DIRECTORY=/certs
     volumes:
       - ./certs:/certs:ro

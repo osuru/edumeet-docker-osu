@@ -50,6 +50,29 @@ function getListenIps() {
 	return listenIP;
 }
 
+var getIce = function (AUTH_SECRET, urls) {
+        // Set to a small value.
+    const PASSWORD_EXPIRY_SECONDS = 300;
+        // Get the AUTH_SECRET used to configure coturns.
+        //const AUTH_SECRET = 'examplekey'; - TURN auth key
+        // Whereever your server can be reached, (IP address, or hostname),
+        // with the appropriate TLS certificates.
+    const TURN_SERVERS = urls;
+        // Anything you want, just for documentation.
+    const USERNAME = 'onlineosuru';
+    const crypto = require('crypto');
+    const timestamp = Math.floor(Date.now() / 1000) + PASSWORD_EXPIRY_SECONDS;
+    const temporary_username = String(timestamp) + ':' + USERNAME;
+    const hmac = crypto.createHmac('sha1', AUTH_SECRET)
+	 .update(temporary_username).digest('base64');
+    return {
+	urls: TURN_SERVERS,
+	username: temporary_username,
+	credential: hmac,
+	credentialType: 'password',
+    };
+}
+
 
 
 
@@ -133,7 +156,7 @@ module.exports =
 	*/
 	// URI and key for requesting geoip-based TURN server closest to the client
 	turnAPIKey    : 'examplekey',
-	turnAPIURI    : 'https://example.com/api/turn',
+//	turnAPIURI    : 'https://example.com/api/turn',
 	turnAPIparams : {
 		'uri_schema' 	: 'turn',
 		'transport' 		: 'tcp',
@@ -142,7 +165,7 @@ module.exports =
 	},
 	turnAPITimeout    : 2 * 1000,
 	// Backup turnservers if REST fails or is not configured
-	backupTurnServers : [
+/*	backupTurnServers : [
 		{
 			urls : [
 				'turn:turn.example.com:443?transport=tcp'
@@ -150,7 +173,11 @@ module.exports =
 			username   : 'example',
 			credential : 'example'
 		}
-	],
+	],*/
+	//Special getter for preshared key auth for TURN server
+	get backupTurnServers(){return [getIce('exampleTURNpass',['turn:.ru:6444?transport=udp',
+						'turns:online.osu.ru:443?transport=tcp'])];},
+
 	// bittorrent tracker
 	fileTracker  : 'wss://tracker.lab.vvc.niif.hu:443',
 	// redis server options
