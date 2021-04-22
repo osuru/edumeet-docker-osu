@@ -15,7 +15,11 @@ Whats new:
 - add script to recompile app if changed
 - add custom entrypoint with logs for DEV enviroment
 - add sample haproxy config for TLS frontend for edumeet and TURN shared port (require TWO dns names) 
-- 
+
+
+![pic1](https://user-images.githubusercontent.com/1792184/115709704-f8357780-a38a-11eb-8722-ab7e92baa487.png)
+
+
 
 ## Run it in few easy step
 
@@ -94,12 +98,13 @@ If you change .env then you have to rebuild the image.
 
 ## Docker Swarm
 
+docker stack deploy 
 
 ## Scale up
 
 ## Haproxy share port
 
-# Custom resolver for SWARM mode only
+## Custom resolver for SWARM mode only
 ```
 resolvers docker
     nameserver dns1 127.0.0.11:53
@@ -114,7 +119,7 @@ resolvers docker
     hold obsolete   10s
  ```
  
-# Frontend with TLS
+## Frontend with TLS
 
 frontend my_haproxy_ssl
  bind *:443 ssl crt /etc/ssl/haproxy.pem
@@ -141,7 +146,7 @@ backend edumeet-turn
 
 
 # Letsencrypt
-
+## Haproxy for letsencrypt
 ```
 frontend my_haproxy_http
  bind *:80
@@ -157,13 +162,13 @@ backend letsencrypt-backend
 
 ```
 
-# Create certificate script
+## Create certificate script
 ```
 certbot certonly --expand --standalone -d host-A.ru, host-B.ru  \
     --non-interactive --agree-tos --email example@host.ru \
     --http-01-port=8888 \
 ```
-# Renew script
+## Renew script
 
 ```
 #!/bin/sh
