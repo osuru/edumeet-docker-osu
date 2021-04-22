@@ -1,0 +1,15 @@
+version: "3.3"
+services:
+  coturn:
+    image: michaelfig/coturns
+    network_mode: "host"
+    environment:
+     - AUTH_SECRET=examplekey
+     - AUTH_REALM=online.osu.ru
+     - EXTERNAL_IP=62.76.152.229
+     - TLS_DIRECTORY=/certs
+    volumes:
+      - ./certs:/certs:ro
+      - ./certs/cert.pem:/certs/tls.crt:ro
+      - ./certs/key.pem:/certs/tls.key:ro
+      - ./configs/coturn/turnserver.conf.in:/turnserver.conf.in:ro

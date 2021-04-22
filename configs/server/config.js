@@ -51,6 +51,8 @@ function getListenIps() {
 }
 
 
+
+
 module.exports =
 {
 
@@ -152,17 +154,17 @@ module.exports =
 	// bittorrent tracker
 	fileTracker  : 'wss://tracker.lab.vvc.niif.hu:443',
 	// redis server options
-	redisOptions : {password: 'hd8qu31chmcu39gwuk27s9b9allnc93u4m7umu8c2t'},
+	redisOptions : {host: 'redis', password: 'hd8qu31chmcu39gwuk27s9b9allnc93u4m7umu8c2t'},
 	// session cookie secret
 	cookieSecret : 'T0P-S3cR3t_cook!e',
 	cookieName   : 'edumeet.sid',
 	// if you use encrypted private key the set the passphrase
-	tls          :
+/*	tls          :
 	{
 		cert : `${__dirname}/../certs/cert.pem`,
 		// passphrase: 'key_password'
 		key  : `${__dirname}/../certs/key.pem`
-	},
+	},*/
 	// listening Host or IP 
 	// If omitted listens on every IP. ("0.0.0.0" and "::")
 	// listeningHost: 'localhost',
@@ -170,17 +172,17 @@ module.exports =
 	listeningPort         : 443,
 	// Any http request is redirected to https.
 	// Listening port for http server.
-	listeningRedirectPort : 80,
+	//listeningRedirectPort : 80,
 	// Listens only on http, only on listeningPort
 	// listeningRedirectPort disabled
 	// use case: loadbalancer backend
-	httpOnly              : false,
+	httpOnly              : true,
 	// WebServer/Express trust proxy config for httpOnly mode
 	// You can find more info:
 	//  - https://expressjs.com/en/guide/behind-proxies.html
 	//  - https://www.npmjs.com/package/proxy-addr
 	// use case: loadbalancer backend
-	trustProxy            : '',
+	trustProxy            : '1',
 	// This logger class will have the log function
 	// called every time there is a room created or destroyed,
 	// or peer created or destroyed. This would then be able

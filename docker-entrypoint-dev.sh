@@ -5,6 +5,5 @@ set -e
 
 env
 cd ${BASEDIR}/${EDUMEET}/server
- node ${BASEDIR}/${EDUMEET}/server/server.js
-
+DEBUG=* node ${BASEDIR}/${EDUMEET}/server/server.js 
 exec "$@"

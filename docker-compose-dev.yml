@@ -3,7 +3,7 @@ version: "3.3"
 services:
 # edumeet
   edumeet:
-    env_file: .env
+    env_file: .env.dev
 #    image: edumeet/edumeet:${TAG}
     image: node:$NODE_VER
     depends_on: 
@@ -20,21 +20,21 @@ services:
     restart: unless-stopped
     entrypoint: "/docker-entrypoint.sh"
     volumes:
-      - ./docker-entrypoint.sh:/docker-entrypoint.sh
+      - ./docker-entrypoint-dev.sh:/docker-entrypoint.sh
       - ./edumeet-osu:/opt/edumeet
-      - ./configs/server:${BASEDIR}/${EDUMEET}/server/config
-      - ./configs/app:${BASEDIR}/${EDUMEET}/server/public/config
-#      - ./certs:${BASEDIR}/${EDUMEET}/server/certs
+      - ./configs/server:${BASEDIR}/${EDUMEET}/server/config:ro
+      - ./configs/app:${BASEDIR}/${EDUMEET}/server/public/config:ro
+#      - ./certs:${BASEDIR}/${EDUMEET}/server/certs:ro
 #      - ./certs/cert.pem:${BASEDIR}/${EDUMEET}/server/certs/cert.pem:ro
 #      - ./certs/key.pem:${BASEDIR}/${EDUMEET}/server/certs/key.pem:ro
-      - ./images:${BASEDIR}/${EDUMEET}/server/public/images
-      - ./privacy:${BASEDIR}/${EDUMEET}/server/public/static/privacy
+      - ./images:${BASEDIR}/${EDUMEET}/server/public/images:ro
+      - ./privacy:${BASEDIR}/${EDUMEET}/server/public/static/privacy:ro
       - ./.well-known:${BASEDIR}/${EDUMEET}/server/public/.well-known
     ports:
     #  - "80:80"
-       - "5443:5443"
+      - "5543:5443"
     #  - "40000-49999:40000-49999/udp"
-#    network_mode: "host"
+    #network_mode: "host"
     stdin_open: true
     tty: true
 #  coturn:
@@ -50,15 +50,15 @@ services:
 #     - EXTERNAL_IP=62.76.152.229
 #     - TLS_DIRECTORY=/certs
 #    volumes:
-#      - ./certs:/certs
-#      - ./certs/cert.pem:/certs/tls.crt
-#      - ./certs/key.pem:/certs/tls.key
+#      - ./certs:/certs:ro
+#      - ./certs/cert.pem:/certs/tls.crt:ro
+#      - ./certs/key.pem:/certs/tls.key:ro
 #      - ./configs/coturn/turnserver.conf.in:/turnserver.conf.in:ro
   redis:
     image: redis
-    #network_mode: "host"
     ports:
-       - 6369:6379
+      - 6379:6379 
+    #network_mode: "host"
     entrypoint: redis-server /usr/local/etc/redis/redis.conf
     restart: unless-stopped
     volumes:

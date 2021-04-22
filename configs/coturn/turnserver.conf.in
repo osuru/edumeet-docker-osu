@@ -1,0 +1,17 @@
+log-file=stdout
+#no-udp
+#no-tcp
+tls-listening-port=6443
+listening-port=6444
+listening-ip=@EXT_IP@
+
+tcp-proxy-port=6445
+external-ip=@EXT_IP@
+
+#denied-peer-ip=192.168.0.0-192.168.255.255
+
+
+use-auth-secret
+realm=@AUTH_REALM@
+static-auth-secret=@AUTH_SECRET@
+log-binding
